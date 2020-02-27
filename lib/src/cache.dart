@@ -24,6 +24,11 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
   @override
   Future<T> getItem(String key) async {
     final itemData = await _storage.getItem(key);
+
+    if (itemData == null) {
+      return null;
+    }
+
     return _coder.decode(itemData);
   }
 

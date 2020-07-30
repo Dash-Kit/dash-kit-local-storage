@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_platform_local_storage/src/coder/local_storage_coder.dart';
-import 'package:flutter_platform_local_storage/src/dependency/default_local_storage_dependency.dart';
-import 'package:flutter_platform_local_storage/src/dependency/local_storage_dependancy.dart';
-import 'package:flutter_platform_local_storage/src/local_storage.dart';
+import 'package:dash_kit_local_storage/src/coder/local_storage_coder.dart';
+import 'package:dash_kit_local_storage/src/dependency/default_local_storage_dependency.dart';
+import 'package:dash_kit_local_storage/src/dependency/local_storage_dependancy.dart';
+import 'package:dash_kit_local_storage/src/local_storage.dart';
 
 class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
   Cache(LocalStorageCoder<T> coder)

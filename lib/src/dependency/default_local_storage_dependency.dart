@@ -1,4 +1,4 @@
-import 'package:flutter_platform_local_storage/src/dependency/local_storage_dependancy.dart';
+import 'package:dash_kit_local_storage/src/dependency/local_storage_dependancy.dart';
 import 'package:localstorage/localstorage.dart';
 
 class DefaultLocalStorageDependency extends LocalStorageDependancy {

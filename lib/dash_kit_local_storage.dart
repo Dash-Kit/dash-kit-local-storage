@@ -1,4 +1,4 @@
-library flutter_platform_local_storage;
+library dash_kit_local_storage;
 
 export './src/coder/default_local_storage_coder.dart';
 export './src/coder/json_local_storage_coder.dart';

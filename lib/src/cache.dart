@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:dash_kit_local_storage/src/coder/local_storage_coder.dart';
 import 'package:dash_kit_local_storage/src/dependency/default_local_storage_dependency.dart';
 import 'package:dash_kit_local_storage/src/dependency/local_storage_dependancy.dart';
@@ -10,9 +9,9 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
         _coder = coder,
         assert(T != dynamic);
 
-  Cache.customLocalStorageDependancy({
-    @required LocalStorageDependancy localStorageDependancy,
-    @required LocalStorageCoder<T> coder,
+  Cache.customLocalStorageDependency({
+    required LocalStorageDependancy localStorageDependancy,
+    required LocalStorageCoder<T> coder,
   })  : _storage = localStorageDependancy,
         _coder = coder;
 
@@ -22,7 +21,7 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
   static const _itemsKeysStorageKey = 'ITEMS_KEYS_STORAGE_KEY';
 
   @override
-  Future<T> getItem(String key) async {
+  Future<T?> getItem(String key) async {
     final itemData = await _storage.getItem(key);
 
     if (itemData == null) {
@@ -47,12 +46,6 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
 
   @override
   Future<void> updateItem(T item) async {
-    assert(item.storageId != null, 'Storage ID cannot be null');
-
-    if (item?.storageId == null) {
-      return;
-    }
-
     final keys = await _getAllKeys();
 
     if (!keys.contains(item.storageId)) {
@@ -65,12 +58,9 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
 
   @override
   Future<void> updateItems(List<T> items) async {
-    final filtredItems = items.where((i) => i.storageId != null);
-    assert(filtredItems.length == items.length, 'Storage ID cannot be null');
-
     final keys = await _getAllKeys();
     final keysSet = keys.toSet();
-    final missingKeys = filtredItems
+    final missingKeys = items
         .where((i) => !keysSet.contains(i.storageId))
         .map((i) => i.storageId);
 
@@ -80,18 +70,12 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
     }
 
     await Future.wait(
-      filtredItems.map((i) => _storage.setItem(i.storageId, i)),
+      items.map((i) => _storage.setItem(i.storageId, i)),
     );
   }
 
   @override
   Future<void> removeItem(T item) async {
-    assert(item.storageId != null, 'Storage ID cannot be null');
-
-    if (item?.storageId == null) {
-      return;
-    }
-
     final keys = await _getAllKeys();
     keys.remove(item.storageId);
 
@@ -106,12 +90,6 @@ class Cache<T extends LocalStorageItem> extends LocalStorage<T> {
 
   @override
   Future<void> removeItemByKey(String key) async {
-    assert(key != null, 'Storage ID cannot be null');
-
-    if (key == null) {
-      return;
-    }
-
     final keys = await _getAllKeys();
     keys.remove(key);
 

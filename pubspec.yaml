@@ -1,15 +1,15 @@
 name: dash_kit_local_storage
 description: The DashKit component for the local storage
-version: 1.0.0
+version: 3.0.0-dev.1
 homepage: https://github.com/Dash-Kit/dash-kit-local-storage
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  localstorage: ^3.0.2+5
+  localstorage: ^3.0.6+9
 
 dev_dependencies:
   flutter_test:

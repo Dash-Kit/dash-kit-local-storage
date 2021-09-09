@@ -3,7 +3,7 @@ abstract class LocalStorageItem {
 }
 
 abstract class LocalStorage<T extends LocalStorageItem> {
-  Future<T> getItem(String key);
+  Future<T?> getItem(String key);
 
   Future<List<T>> getAllItems();
 
